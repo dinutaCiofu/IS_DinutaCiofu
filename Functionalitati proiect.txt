@@ -1,0 +1,12 @@
+Aplicatie de ticketing pentru un cinema 
+
+Functionalitati:
+1. Autentificare si autorizare: implementarea unui sistem de autentificare pentru a permite utilizatorilor sa se conecteze la conturile lor. Autorizarea va asigura ca doar administratorii au acces la functionalitatile de editare a listei de filme si a orarului 
+2. Gestionarea filmelor: pentru administratori, adaugarea, editarea si stergerea filmelor, precum si a datelor legate de proiectii (ore de difuzare, sali, preturi etc)
+3. Orarul zilnic: o pagina principala care prezinta programul zilnic al filmelor care se difuzeaza, liste in functie de zi si ora. Aceasta poate include afisarea de informatii precum titlul filmului, ora de incepere, sala, disponibilitatea de locuri, pretul biletelor si un buton pentru rezervare
+4. Rezervari de bilete: utilizatorii obisnuiti pot rezerva bilete pentru filmele dorite, selectand numarul de locuri si procesand plata
+5. Detalii despre filme: fiecare film ar trebui sa aiba o pagina dedicata cu descriere, rating, recenzii si orarul viitoarelor proiectii
+6. Notificari si avertizari: implementarea unui sistem de notificari sau avertizari pentru confirmarea rezervarilor, schimbari ale orarului sau a altor actualizari relevante.
+7. Management utilizatori: administrarea conturilor de utilizator, inclusiv resetarea parolelor, stergerea conturilor si gestionarea datelor personale
+8. Baza de date MySQL: stocarea datelor despre filme, programari, utilizatori si alte informatii relevante intr-o baza de date MySQL
+9. Interfata: dezvoltarea unei interfete utilizator prietenoasa si atractiva, care sa permita utilizatorilor sa navigheze usor prin aplicatie si sa-si faca rezervari fara dificultati
