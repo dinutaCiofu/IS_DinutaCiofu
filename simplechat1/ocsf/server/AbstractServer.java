@@ -151,6 +151,7 @@ public abstract class AbstractServer implements Runnable
    * @exception IOException if an I/O error occurs while
    * closing the server socket.
    */
+
   final synchronized public void close() throws IOException
   {
     if (serverSocket == null)

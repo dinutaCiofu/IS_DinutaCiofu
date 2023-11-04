@@ -51,6 +51,31 @@ public class EchoServer extends AbstractServer
     System.out.println("Message received: " + msg + " from " + client);
     this.sendToAllClients(msg);
   }
+  public void handleMessageFromServerUI(String message) {
+    if (message == null) {
+      System.out.println("Client Disconnected");
+    }else if(message.equals("#quit")){
+      try{
+        close();
+      }catch (IOException e){
+        System.out.println("Error while closing the server");
+      }
+    }else if(message.equals("#stop")){
+      stopListening();
+    }else if(message.equals("#close")){
+      try{
+        close();
+      }catch (IOException e){
+        System.out.println("Error while closing the server.");
+      }
+    }else if (message.startsWith("SERVER MSG>")) {
+      // Remove the 'SERVER MSG>' prefix before sending to clients
+      String messageToSend = message.substring("SERVER MSG>".length());
+      this.sendToAllClients("Server Operator: " + messageToSend);
+    } else {
+      System.out.println("Invalid message format. Messages must be prefixed with 'SERVER MSG>'.");
+    }
+  }
     
   /**
    * This method overrides the one in the superclass.  Called
@@ -79,6 +104,8 @@ public class EchoServer extends AbstractServer
           ConnectionToClient client, Throwable exception)  {
     System.out.println("Disconnected...");
   }
+
+
   
   //Class methods ***************************************************
   

@@ -66,15 +66,34 @@ public class ChatClient extends AbstractClient
    */
   public void handleMessageFromClientUI(String message)
   {
-    try
-    {
-      sendToServer(message);
-    }
-    catch(IOException e)
-    {
-      clientUI.display
-        ("Could not send message to server.  Terminating client.");
-      quit();
+    if(message.equals("#quit")){
+      this.quit();
+    }else if(message.equals("#logoff")){
+      try{
+        closeConnection();
+        System.out.println("Client is disconnected");
+      }catch (IOException e){
+        e.printStackTrace();
+      }
+    }else if(message.startsWith("#sethost ")){
+      if(isConnected()){
+        System.out.println("Cannot change host while connected. Please log off...");
+      }else{
+        String newHost = message.substring("#sethost ".length());
+        setHost(newHost);
+        System.out.println("Host set to "+ newHost);
+      }
+    }else{
+      try
+      {
+        sendToServer(message);
+      }
+      catch(IOException e)
+      {
+        clientUI.display
+                ("Could not send message to server.  Terminating client.");
+        quit();
+      }
     }
   }
   
