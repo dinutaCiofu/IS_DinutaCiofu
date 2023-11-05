@@ -19,14 +19,18 @@ public class MovieReviewServiceImplementation implements MovieReviewService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MovieRepository movieRepository;
+
 
     @Override
     public MovieReview addReview(MovieReview movieReview) {
-        User user = userRepository.findUserById(movieReview.getUser().getId());
-        movieReview.setUser(user);
-        MovieReview savedReview = movieReviewRepository.save(movieReview);
+        User user = movieReview.getUser();
+        Movie movie = movieReview.getMovie();
 
-        return savedReview;
+        movieReview.setUser(user);
+        movieReview.setMovie(movie);
+        return movieReviewRepository.save(movieReview);
     }
 
     @Override

@@ -11,16 +11,16 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Reservation {
+public class MovieCast {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "userIdFk"))
-    private User user;
+    @JoinColumn(name = "actor_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "actorIdFk"))
+    private Actor actor;
 
     @ManyToOne
-    @JoinColumn(name = "broadcast_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "broadcastIdFk"))
-    private Broadcast broadcast;
+    @JoinColumn(name = "movie_id", referencedColumnName = "id", foreignKey = @ForeignKey(name = "movieIdFk"))
+    private Movie movie;
 }

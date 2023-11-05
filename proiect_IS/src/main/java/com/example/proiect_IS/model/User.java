@@ -1,12 +1,15 @@
 package com.example.proiect_IS.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +29,9 @@ public class User {
     private Boolean isAdmin;
     private Boolean isCustomer;
 
-    @JsonIgnoreProperties("user")
-    @OneToMany(mappedBy = "user")
-    private List<MovieReview> reviews;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<MovieReview> reviews = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 }

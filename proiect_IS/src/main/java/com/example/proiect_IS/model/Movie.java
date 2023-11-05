@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -20,34 +21,22 @@ public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(nullable = false,unique = true)
     private String title;
-
-    @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
     private String duration;
-
-    @Column(nullable = false)
     private String genre;
-
-    @Column(nullable = false)
     private String language;
-
-    @Column(nullable = false)
     private String category;
 
-    @JsonIgnoreProperties("movie")
-    @OneToMany(mappedBy = "movie")
-    private List<MovieReview> reviews;
+//    @JsonIgnore
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL)
+    private List<MovieReview> reviews = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "movie_actor",
-            joinColumns = @JoinColumn(name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
-    private List<Actor> cast;
+
+    @OneToMany(mappedBy = "movie")
+    private List<Broadcast> broadcasts = new ArrayList<>();
+
+
+    @OneToMany(mappedBy = "movie")
+    private List<MovieCast> cast = new ArrayList<>();
 }

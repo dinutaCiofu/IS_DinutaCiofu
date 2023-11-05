@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -23,8 +24,9 @@ public class Actor {
     private String firstName;
     private String lastName;
 
-    @ManyToMany(mappedBy = "cast") // aceasta parte a relatiei este deja definita in entitatea Movie prin campul 'cast'
-    @JsonIgnore
-    private List<Movie> filmography;
+    @OneToMany(mappedBy = "actor")
+//    @JsonIgnore
+    private List<MovieCast> filmography = new ArrayList<>();
+
 
 }
