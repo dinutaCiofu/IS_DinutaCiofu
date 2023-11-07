@@ -24,11 +24,6 @@ public class ActorServiceImplementation implements ActorService {
         return actorRepository.findAll();
     }
 
-    @Override
-    public List<Actor> findAllActorsById(List<Long> ids) {
-        return new ArrayList<>(actorRepository.findAllByIdIn(ids)) {
-        };
-    }
 
     @Override
     public Actor findActorByFirstName(String firstName) {

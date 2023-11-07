@@ -11,8 +11,7 @@ import java.util.Set;
 public interface ActorService {
     Actor saveActor(Actor actor);
 //    void deleteActorById(Long id);
-List<Actor> findAllActors();
-    List<Actor> findAllActorsById(List<Long> ids);
+    List<Actor> findAllActors();
     Actor findActorByFirstName(String firstName);
     Actor findActorById(Long id);
 
