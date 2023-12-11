@@ -8,20 +8,29 @@ import {
   htmlStyle,
   toolBarBtnStyle,
   toolBarStyle,
+  aboutImgStyle,
 } from "./HomePage.styles";
 import TabButton from "../components/TabButton";
 import AboutPage from "./AboutPage";
+import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
+import WelcomeImage from "../Img/WelcomeImage.png";
 
 const HomePage = (): JSX.Element => {
   const [aboutSelected, setAboutSelected] = useState(false);
   const [contactSelected, setContactSelected] = useState(false);
   const [programSelected, setProgramSelected] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const scrollToAbout = () => {
     if (aboutRef.current) {
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const login = (event: any): void => {
+    navigate("/Login");
   };
   return (
     <div style={htmlStyle}>
@@ -70,13 +79,29 @@ const HomePage = (): JSX.Element => {
         <Typography variant="body2">
           Oferim cele mai noi și captivante filme într-o atmosferă confortabilă.
         </Typography>
-        <Button style={getStartedButtonStyle} variant="contained" size="large">
+        <Button
+          style={getStartedButtonStyle}
+          onClick={login}
+          variant="contained"
+          size="large"
+        >
           Începeți
         </Button>
       </div>
-      <div ref={aboutRef}>
-        <AboutPage />
-      </div>
+      <Grid container spacing={2} style={aboutImgStyle}>
+        <Grid item xs={6}>
+          <div ref={aboutRef}>
+            <AboutPage />
+          </div>
+        </Grid>
+        <Grid item xs={4}>
+          <img
+            src={WelcomeImage}
+            alt="Welcome to the cinema"
+            style={{ maxWidth: "90%", height: "auto" }}
+          />
+        </Grid>
+      </Grid>
     </div>
   );
 };

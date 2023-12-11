@@ -8,7 +8,6 @@ import {
 } from "./Login.styles";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import { text } from "stream/consumers";
 
 const LoginPage = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
@@ -41,7 +40,9 @@ const LoginPage = (): JSX.Element => {
         <TextField
           style={textFieldStyle}
           label="Password"
-          id="password-field"
+          id="standard-password-input"
+          type="password"
+          // id="password-field"
           defaultValue=""
           variant="filled"
           size="small"

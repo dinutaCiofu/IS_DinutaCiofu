@@ -8,7 +8,6 @@ const Root = (): JSX.Element => {
   return (
     <>
       <HomePage />
-      <LoginPage />
     </>
   );
 };

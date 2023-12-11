@@ -6,7 +6,7 @@ import { bodyTextStyle, headingStyle, paperStyle } from "./AboutPage.styles";
 const AboutPage: React.FC = () => {
   return (
     <div>
-      <Paper elevation={3} style={paperStyle}>
+      <Paper elevation={3} style={{ ...paperStyle, textAlign: "center" }}>
         <Typography variant="h4" gutterBottom style={headingStyle}>
           Despre CineBook
         </Typography>

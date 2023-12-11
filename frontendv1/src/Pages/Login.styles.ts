@@ -10,13 +10,13 @@ export const parentDivStyle: React.CSSProperties = {
 
 export const loginButtonStyle: React.CSSProperties = {
   marginTop: 20,
-  backgroundColor: "#7925d3", // Set your desired background color
-  color: "#ebefef", // Set your desired text color
-  border: "none",
+  backgroundColor: "#20043d",
+  color: "#ebefef",
+  border: "#20043d",
   borderRadius: "6px",
   padding: "0.5rem 1rem",
   fontSize: "1rem",
-  cursor: "pointer",
+  cursor: "default",
   transition: "all 0.2s ease-in-out",
 };
 
@@ -33,7 +33,7 @@ export const textFieldStyle: React.CSSProperties = {
 export const htmlStyle: React.CSSProperties = {
   fontFamily: '"Quicksand", sans-serif',
   color: "#ebe7ef",
-  background: "radial-gradient(#280a48, #20043d)",
+  background: "linear-gradient( #20043d,#7F28B6, #9945CF)",
   fontSynthesis: "none",
   WebkitFontSmoothing: "antialiased",
   MozOsxFontSmoothing: "grayscale",
