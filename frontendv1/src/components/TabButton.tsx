@@ -10,6 +10,7 @@ interface TabButtonProps {
 const TabButton: React.FC<TabButtonProps> = (props): JSX.Element => {
   return (
     <Button
+      size="small"
       color="inherit"
       onClick={props.onSelect}
       variant="contained"

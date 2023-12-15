@@ -1,18 +1,24 @@
 export const paperStyle: React.CSSProperties = {
-  padding: "20px",
+  padding: "30px",
   margin: "50px",
-  boxShadow: "0 2px 8px rgba(184, 177, 173, 20)",
+  marginTop: "80px",
+  boxShadow: "0 2px 8px rgba(227, 175, 243, 30)",
+  marginBottom: "260px",
+  background: "#F5DCFD",
 };
 
 export const headingStyle: React.CSSProperties = {
   fontFamily: '"Quicksand", sans-serif',
-  color: "#CA81F9",
-  marginBottom: "10px",
+  color: "#4E3C53",
+  marginBottom: "20px",
+  marginTop: "20px",
 };
 
 export const bodyTextStyle: React.CSSProperties = {
-  fontFamily: "'Open Sans', sans-serif",
-  color: "#CA81F9",
+  fontFamily: "'Roboto', sans-serif",
+  color: "#4E3C53",
+  fontSize: "17px",
+  textAlign: "center",
 };
 
 export const imgStyle: React.CSSProperties = {};

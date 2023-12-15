@@ -1,36 +1,37 @@
 import React, { useState, useRef } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import {
-  getStartedButtonStyle,
-  htmlStyle,
-  toolBarBtnStyle,
-  toolBarStyle,
-  aboutImgStyle,
-} from "./HomePage.styles";
+import { htmlStyle, toolBarStyle } from "./HomePage.styles";
 import TabButton from "../components/TabButton";
-import AboutPage from "./AboutPage";
-import { useNavigate } from "react-router-dom";
+
 import { Grid } from "@mui/material";
-import WelcomeImage from "../Img/WelcomeImage.png";
+import ContactSection from "./Sections/ContactSection";
+import AboutSection from "./Sections/AboutSection";
+import AvantajeSection from "./Sections/AvantajeSection";
+import IntroductionSection from "./Sections/IntroductionSection";
+import FooterSection from "./Sections/FooterSection";
 
 const HomePage = (): JSX.Element => {
   const [aboutSelected, setAboutSelected] = useState(false);
   const [contactSelected, setContactSelected] = useState(false);
-  const [programSelected, setProgramSelected] = useState(false);
+  const [avantajeSelected, setAvantajeSelected] = useState(false);
   const aboutRef = useRef<HTMLDivElement>(null);
-  const navigate = useNavigate();
+  const avantajeRef = useRef<HTMLDivElement>(null);
+  const contactRef = useRef<HTMLDivElement>(null);
 
   const scrollToAbout = () => {
     if (aboutRef.current) {
       aboutRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-
-  const login = (event: any): void => {
-    navigate("/Login");
+  const scrollToAvantaje = () => {
+    avantajeRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToContact = () => {
+    if (contactRef.current) {
+      contactRef.current.scrollIntoView({ behavior: "smooth" });
+    }
   };
   return (
     <div style={htmlStyle}>
@@ -43,7 +44,7 @@ const HomePage = (): JSX.Element => {
             onSelect={() => {
               setAboutSelected(!aboutSelected);
               setContactSelected(false);
-              setProgramSelected(false);
+              setAvantajeSelected(false);
               scrollToAbout();
             }}
             isSelected={aboutSelected}
@@ -53,54 +54,38 @@ const HomePage = (): JSX.Element => {
           <TabButton
             onSelect={() => {
               setAboutSelected(false);
+              setContactSelected(false);
+              setAvantajeSelected(!avantajeSelected);
+              scrollToAvantaje();
+            }}
+            isSelected={avantajeSelected}
+          >
+            Avantaje Online
+          </TabButton>
+          <TabButton
+            onSelect={() => {
+              setAboutSelected(false);
               setContactSelected(!contactSelected);
-              setProgramSelected(false);
+              setAvantajeSelected(false);
+              scrollToContact();
             }}
             isSelected={contactSelected}
           >
             Contact
           </TabButton>
-          <TabButton
-            onSelect={() => {
-              setAboutSelected(false);
-              setContactSelected(false);
-              setProgramSelected(!programSelected);
-            }}
-            isSelected={programSelected}
-          >
-            Program
-          </TabButton>
         </Toolbar>
       </AppBar>
-      <div style={{ textAlign: "center", marginTop: "50px" }}>
-        <Typography variant="h3" gutterBottom>
-          Bine ați venit la CineBook
-        </Typography>
-        <Typography variant="body2">
-          Oferim cele mai noi și captivante filme într-o atmosferă confortabilă.
-        </Typography>
-        <Button
-          style={getStartedButtonStyle}
-          onClick={login}
-          variant="contained"
-          size="large"
-        >
-          Începeți
-        </Button>
+      <IntroductionSection />
+
+      <div ref={aboutRef}>
+        <AboutSection />
       </div>
-      <Grid container spacing={2} style={aboutImgStyle}>
-        <Grid item xs={6}>
-          <div ref={aboutRef}>
-            <AboutPage />
-          </div>
-        </Grid>
-        <Grid item xs={4}>
-          <img
-            src={WelcomeImage}
-            alt="Welcome to the cinema"
-            style={{ maxWidth: "90%", height: "auto" }}
-          />
-        </Grid>
+      <Grid item xs={6} ref={avantajeRef}>
+        <AvantajeSection />
+      </Grid>
+      <Grid item xs={6} ref={contactRef}>
+        {/* <ContactSection /> */}
+        <FooterSection />
       </Grid>
     </div>
   );

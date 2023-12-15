@@ -1,7 +1,7 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
 import Root from "../Root";
-import LoginPage from "../../Pages/LoginPage";
 import HomePage from "../../Pages/HomePage";
+import LoginForm from "../../Pages/Login/LoginForm";
 
 const routes: RouteObject[] = [
   {
@@ -11,7 +11,7 @@ const routes: RouteObject[] = [
   },
   {
     path: "/Login",
-    element: <LoginPage />,
+    element: <LoginForm />,
   },
 ];
 export const router = createBrowserRouter(routes);
