@@ -39,7 +39,8 @@ public class RoomController {
     }
 
     @DeleteMapping("/deleteRoomByName")
-    public void deleteRoomByName(@RequestBody String name){
+    public ResponseEntity<String> deleteRoomByName(@RequestBody String name){
         roomServiceImplementation.deleteRoomByName(name);
+        return ResponseEntity.ok("Room deleted successfully");
     }
 }

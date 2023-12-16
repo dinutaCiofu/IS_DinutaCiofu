@@ -14,4 +14,5 @@ public interface BroadcastService {
 
     List<Broadcast> findAllBroadcasts();
     List<Broadcast> findBroadcastsByDate(LocalDate date);
+    void deleteBroadcastById(Long id);
 }

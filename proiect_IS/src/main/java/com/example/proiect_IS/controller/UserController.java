@@ -3,15 +3,19 @@ package com.example.proiect_IS.controller;
 import com.example.proiect_IS.model.User;
 import com.example.proiect_IS.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class UserController {
     private final UserServiceImplementation userServiceImplementation;
 
-    @PostMapping("/addUser")
+        @PostMapping("/signup")
     public User addUser(@RequestBody User user){
         return userServiceImplementation.saveUser(user);
     }
@@ -20,15 +24,21 @@ public class UserController {
     public User findById(@PathVariable Long id){
         return userServiceImplementation.findUserById(id);
     }
+    @GetMapping("/displayAllUsers")
+    public ResponseEntity<List<User>> findAllUsers(){
+            List<User> users = userServiceImplementation.findAllUsers();
+        return new ResponseEntity<>(users, HttpStatus.OK);
+    }
 
     @GetMapping("/findUserByEmail")
-    public User findUserByEmail(@RequestBody String email){
-        return userServiceImplementation.findUserByEmail(email);
+    public ResponseEntity<User> findUserByEmail(@RequestParam String email){
+        return new ResponseEntity<>(userServiceImplementation.findUserByEmail(email), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteUser")
-    public void deleteUserByEmail(@RequestBody String email){
+    public ResponseEntity<String> deleteUserByEmail(@RequestBody String email){
         userServiceImplementation.deleteUserByEmail(email);
+        return ResponseEntity.ok("User deleted successfully");
     }
 
     @PutMapping("/updateUser/{id}")

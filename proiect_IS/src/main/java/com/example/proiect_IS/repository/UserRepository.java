@@ -1,17 +1,17 @@
 package com.example.proiect_IS.repository;
 
 import com.example.proiect_IS.model.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Set;
-
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-    User findUserById(Long id);
-    User save(User user);
-    List<User> findAll();
+public interface UserRepository extends JpaRepository<User, Long> {
+    @Query("SELECT u FROM User u WHERE u.email = :email")
     User findUserByEmail(String email);
+
+    @Modifying
+    @Query(value = "DELETE FROM User u WHERE u.email = :email", nativeQuery = true)
     void deleteUserByEmail(String email);
 }

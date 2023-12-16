@@ -1,7 +1,6 @@
 package com.example.proiect_IS.service.implementation;
 
 import com.example.proiect_IS.model.Actor;
-import com.example.proiect_IS.model.Movie;
 import com.example.proiect_IS.repository.ActorRepository;
 import com.example.proiect_IS.service.ActorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,13 @@ public class ActorServiceImplementation implements ActorService {
     }
 
     @Override
-    public List<Actor> findAllActors() {
-        return actorRepository.findAll();
+    public void deleteActorById(Long id) {
+        actorRepository.deleteById(id);
     }
-
-
+    @Override
+    public List<Actor> findAllActors() {
+      return actorRepository.findAll();
+    }
     @Override
     public Actor findActorByFirstName(String firstName) {
         return actorRepository.findActorByFirstName(firstName);
@@ -32,20 +33,8 @@ public class ActorServiceImplementation implements ActorService {
 
     @Override
     public Actor findActorById(Long id) {
-        return actorRepository.findActorById(id);
+        return actorRepository.findById(id).get();
     }
 
-//    @Override
-//    public Actor updateActorFilmography(Actor actor, Long id) {
-//        Actor actorDB = actorRepository.findActorById(id);
-//        if(actorDB == null){
-//            return null;
-//        }
-//        if(actor.getFilmography() != null){
-//            actorDB.setFilmography(actor.getFilmography());
-//        }
-//
-//        return actorRepository.save(actorDB);
-//    }
 
 }

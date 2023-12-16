@@ -3,29 +3,29 @@ package com.example.proiect_IS.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
+@Table(name="actor")
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+
 public class Actor {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
     private Long id;
     private String firstName;
     private String lastName;
 
     @OneToMany(mappedBy = "actor")
-//    @JsonIgnore
+    @JsonIgnore
     private List<MovieCast> filmography = new ArrayList<>();
 
 

@@ -15,43 +15,31 @@ import java.util.Objects;
 public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
-//    @Autowired
-//    private MovieReviewRepository movieReviewRepository;
 
     @Override
     public User findUserById(Long id) {
-        return userRepository.findUserById(id);
+        return userRepository.findById(id).get();
     }
 
     @Override
     public User saveUser(User user) {
-        User existingUser = userRepository.findUserByEmail(user.getEmail());
-
-        if(existingUser == null){
-            return userRepository.save(user);
-        }else{
-            return existingUser;
-        }
+        return userRepository.save(user);
     }
-
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
-
     @Override
     public void deleteUserByEmail(String email) {
         userRepository.deleteUserByEmail(email);
     }
-
     @Override
     public List<User> findAllUsers() {
         return userRepository.findAll();
     }
-
     @Override
     public User updateUser(User user, Long userId) {
-        User userDB = userRepository.findUserById(userId);
+        User userDB = userRepository.findById(userId).get();
 //        List<MovieReview> movieReviews = movieReviewRepository.findAllByUser(user);
 
         if(Objects.nonNull(user.getFirstName()) && !"".equalsIgnoreCase(user.getFirstName())){
@@ -72,6 +60,6 @@ public class UserServiceImplementation implements UserService {
 
 //        userDB.setReviews(movieReviews);
 
-        return userRepository.save(userDB);
+        return userRepository.saveAndFlush(userDB);
     }
 }

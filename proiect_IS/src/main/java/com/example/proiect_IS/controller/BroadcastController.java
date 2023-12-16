@@ -3,7 +3,9 @@ package com.example.proiect_IS.controller;
 import com.example.proiect_IS.model.Broadcast;
 import com.example.proiect_IS.service.implementation.BroadcastServiceImplementation;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -36,5 +38,11 @@ public class BroadcastController {
     @GetMapping("/findBroadcastsByDate")
     public List<Broadcast> findBroadcastsByDate(@RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return broadcastServiceImplementation.findBroadcastsByDate(date);
+    }
+
+    @DeleteMapping("/deleteBroadcastById/{id}")
+    public ResponseEntity<String> deleteBroadcastById(@PathVariable Long id){
+        broadcastServiceImplementation.deleteBroadcastById(id);
+        return ResponseEntity.ok("Broadcast deleted successfully");
     }
 }

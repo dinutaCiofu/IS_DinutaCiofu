@@ -1,6 +1,59 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
+import axios from "axios";
+
+type User = {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  email: string;
+  password: string;
+};
+
 const LoginForm: React.FC = () => {
+  const getUser = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const email = "dinutaciofu@gmail.com";
+      const response = await axios.get(
+        `http://localhost:8081/findUserByEmail?email=${encodeURIComponent(
+          email
+        )}`
+      );
+
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error getting users data", error);
+    }
+  };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     // console.log("clicked");
+  //     try {
+  //       const response = await axios.get(
+  //         "http://localhost:8081/findUserByEmail"
+  //       );
+
+  //       console.log(response.data);
+  //     } catch (error) {
+  //       console.error("Error getting users data", error);
+  //     }
+  //   };
+  //   getUser();
+  // }, []);
+
+  // useEffect(() => {
+  //   fetch("http://localhost:8081/findUserByEmail")
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((resData) => {
+  //       console.log(resData);
+  //     });
+  // }, []);
+
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const handleToggle = () => {
@@ -67,7 +120,7 @@ const LoginForm: React.FC = () => {
         className={styles.login}
         style={isChecked ? { transform: "translateY(-500px)" } : {}}
       >
-        <form>
+        <form onSubmit={getUser}>
           <label
             htmlFor={styles.chk}
             aria-hidden={true}

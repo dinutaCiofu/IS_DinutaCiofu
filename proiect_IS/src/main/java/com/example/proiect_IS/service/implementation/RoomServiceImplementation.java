@@ -21,7 +21,7 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public Room findRoomById(Long id) {
-        return roomRepository.findRoomById(id);
+        return roomRepository.findById(id).get();
     }
 
     @Override
@@ -36,22 +36,14 @@ public class RoomServiceImplementation implements RoomService {
 
     @Override
     public Room updateRoom(Room room, Long id) {
-        Room roomDB = roomRepository.findRoomById(id);
-        if(roomDB != null){
-            if(room.getSeats() != null){
-                roomDB.setSeats(room.getSeats());
-            }
-            if(room.getName() != null && !room.getName().isEmpty()){
-                roomDB.setName(room.getName());
-            }
-
-            try{
-                return roomRepository.save(roomDB);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+        Room roomDB = roomRepository.findById(id).get();
+        if (roomDB != null) {
+            roomDB.setSeats(room.getSeats());
+            roomDB.setName(room.getName());
+            return roomRepository.saveAndFlush(roomDB);
+        } else {
+            return null;
         }
-        return null;
     }
 
     @Override
