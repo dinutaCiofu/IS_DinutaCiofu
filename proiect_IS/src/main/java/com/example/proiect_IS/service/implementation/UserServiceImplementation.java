@@ -23,6 +23,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User saveUser(User user) {
+        user.setIsCustomer(true);
+        user.setIsAdmin(false);
         return userRepository.save(user);
     }
     @Override

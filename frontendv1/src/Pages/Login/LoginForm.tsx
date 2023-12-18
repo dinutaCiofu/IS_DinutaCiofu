@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 type User = {
-  id: number;
+  id?: number; //este optional
   firstName: string;
   lastName: string;
   phoneNumber: string;
@@ -12,47 +13,72 @@ type User = {
 };
 
 const LoginForm: React.FC = () => {
+  const [id, setId] = React.useState<number>();
+  const [firstName, setFirstName] = React.useState<string>("");
+  const [lastName, setLastName] = React.useState<string>("");
+  const [phoneNumber, setPhoneNumber] = React.useState<string>("");
+  const [email, setEmail] = React.useState<string>("");
+  const [password, setPassword] = React.useState<string>("");
+
+  const onChangeId = (event: any): void => {
+    setId(event.target.value);
+  };
+  const onChangeFirstName = (event: any): void => {
+    setFirstName(event.target.value);
+  };
+  const onChangeLastName = (event: any): void => {
+    setLastName(event.target.value);
+  };
+  const onChangePhoneNumber = (event: any): void => {
+    setPhoneNumber(event.target.value);
+  };
+  const onChangeEmail = (event: any): void => {
+    setEmail(event.target.value);
+  };
+  const onChangePassword = (event: any): void => {
+    setPassword(event.target.value);
+  };
+
   const getUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {
-      const email = "dinutaciofu@gmail.com";
       const response = await axios.get(
-        `http://localhost:8081/findUserByEmail?email=${encodeURIComponent(
+        `http://localhost:8080/findUserByEmail?email=${encodeURIComponent(
           email
         )}`
       );
 
       console.log(response.data);
+      login();
     } catch (error) {
       console.error("Error getting users data", error);
     }
   };
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     // console.log("clicked");
-  //     try {
-  //       const response = await axios.get(
-  //         "http://localhost:8081/findUserByEmail"
-  //       );
+  const navigate = useNavigate();
+  const login = (): void => {
+    navigate("/Admin");
+  };
 
-  //       console.log(response.data);
-  //     } catch (error) {
-  //       console.error("Error getting users data", error);
-  //     }
-  //   };
-  //   getUser();
-  // }, []);
-
-  // useEffect(() => {
-  //   fetch("http://localhost:8081/findUserByEmail")
-  //     .then((response) => {
-  //       return response.json();
-  //     })
-  //     .then((resData) => {
-  //       console.log(resData);
-  //     });
-  // }, []);
+  const signup = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const newUser: User = {
+      firstName,
+      lastName,
+      phoneNumber,
+      email,
+      password,
+    };
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/signup",
+        newUser
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error sign up", error);
+    }
+  };
 
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
@@ -69,7 +95,7 @@ const LoginForm: React.FC = () => {
         onChange={handleToggle}
       />
       <div className={styles.signup}>
-        <form>
+        <form onSubmit={signup}>
           <label
             className={styles.label}
             htmlFor={styles.chk}
@@ -83,6 +109,7 @@ const LoginForm: React.FC = () => {
             placeholder="First Name"
             required={true}
             className={styles.input}
+            onChange={onChangeFirstName}
           />
           <input
             type="lastname"
@@ -90,6 +117,7 @@ const LoginForm: React.FC = () => {
             placeholder="Last Name"
             required={true}
             className={styles.input}
+            onChange={onChangeLastName}
           />
           <input
             type="phonenumber"
@@ -97,6 +125,7 @@ const LoginForm: React.FC = () => {
             placeholder="Phone Number"
             required={true}
             className={styles.input}
+            onChange={onChangePhoneNumber}
           />
           <input
             type="email"
@@ -104,6 +133,7 @@ const LoginForm: React.FC = () => {
             placeholder="Email"
             required={true}
             className={styles.input}
+            onChange={onChangeEmail}
           />
           <input
             type="password"
@@ -111,6 +141,7 @@ const LoginForm: React.FC = () => {
             placeholder="Password"
             required={true}
             className={styles.input}
+            onChange={onChangePassword}
           />
           <button className={styles.button}>Sign up</button>
         </form>
@@ -138,6 +169,7 @@ const LoginForm: React.FC = () => {
             placeholder="Email"
             required={true}
             className={styles.input}
+            onChange={onChangeEmail}
           />
           <input
             type="password"
@@ -145,6 +177,7 @@ const LoginForm: React.FC = () => {
             placeholder="Password"
             required={true}
             className={styles.input}
+            onChange={onChangePassword}
           />
           <button className={styles.button}>Login</button>
         </form>

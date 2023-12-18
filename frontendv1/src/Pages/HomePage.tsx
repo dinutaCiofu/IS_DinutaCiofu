@@ -6,7 +6,6 @@ import { htmlStyle, toolBarStyle } from "./HomePage.styles";
 import TabButton from "../components/TabButton";
 
 import { Grid } from "@mui/material";
-import ContactSection from "./Sections/ContactSection";
 import AboutSection from "./Sections/AboutSection";
 import AvantajeSection from "./Sections/AvantajeSection";
 import IntroductionSection from "./Sections/IntroductionSection";
