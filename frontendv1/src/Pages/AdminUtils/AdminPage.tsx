@@ -5,6 +5,7 @@ import {
   toolBarStyle,
   listDividersStyle,
   containerStyle,
+  divClientsListStyle,
 } from "./AdminPage.styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -12,8 +13,15 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
+import ClientList from "../../components/ClientList";
 
 const AdminPage = (): JSX.Element => {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const handleOptionSelect = (option: string) => {
+    setSelectedOption(option);
+  };
+
   return (
     <div style={htmlStyle}>
       <AppBar position="fixed">
@@ -29,11 +37,15 @@ const AdminPage = (): JSX.Element => {
           component="nav"
           aria-label="mailbox folders"
         >
-          <ListItem button>
+          <ListItem button onClick={() => handleOptionSelect("Movies")}>
             <ListItemText primary="Movies" />
           </ListItem>
           <Divider />
-          <ListItem button divider>
+          <ListItem
+            button
+            divider
+            onClick={() => handleOptionSelect("Customers")}
+          >
             <ListItemText primary="Customers" />
           </ListItem>
           <ListItem button>
@@ -52,6 +64,9 @@ const AdminPage = (): JSX.Element => {
             <ListItemText primary="My account" />
           </ListItem>
         </List>
+      </div>
+      <div style={divClientsListStyle}>
+        {selectedOption === "Customers" && <ClientList />}
       </div>
     </div>
   );
