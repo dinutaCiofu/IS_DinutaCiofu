@@ -48,19 +48,19 @@ const AdminPage = (): JSX.Element => {
           >
             <ListItemText primary="Customers" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => handleOptionSelect("Program")}>
             <ListItemText primary="Program" />
           </ListItem>
           <Divider light />
-          <ListItem button>
+          <ListItem button onClick={() => handleOptionSelect("Reservations")}>
             <ListItemText primary="Reservations" />
           </ListItem>
           <Divider light />
-          <ListItem button>
+          <ListItem button onClick={() => handleOptionSelect("Broadcasts")}>
             <ListItemText primary="Broadcasts" />
           </ListItem>
           <Divider light />
-          <ListItem button>
+          <ListItem button onClick={() => handleOptionSelect("My account")}>
             <ListItemText primary="My account" />
           </ListItem>
         </List>

@@ -1,7 +1,8 @@
 export const htmlStyle: React.CSSProperties = {
   fontFamily: '"Quicksand", sans-serif',
   color: "#CA81F9",
-  background: "linear-gradient(#20043d,#4E2559, #7F28B6 ,#9945CF, #CA81F9)",
+  background: "linear-gradient(#20043d,#4E2559, #7F28B6 ,#9945CF, #DF5EFF )",
+  // justifyContent: "center",
 };
 export const toolBarStyle: React.CSSProperties = {
   backgroundColor: "#580090",
@@ -20,6 +21,7 @@ export const containerStyle: React.CSSProperties = {
   // width: "200px",
   // marginRight: "20px",
   display: "flex",
+  // justifyContent: "center",
   flexDirection: "column",
   width: "150px",
   backgroundColor: "#580090",
@@ -38,6 +40,8 @@ export const contentStyle: React.CSSProperties = {
 export const divClientsListStyle: React.CSSProperties = {
   position: "absolute",
   display: "flex",
-  top: "50px",
-  left: "750px",
+  flex: 1,
+  // flexDirection: "column",
+  top: "60px",
+  left: "200px",
 };

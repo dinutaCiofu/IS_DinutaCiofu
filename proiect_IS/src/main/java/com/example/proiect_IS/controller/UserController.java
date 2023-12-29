@@ -15,34 +15,42 @@ import java.util.List;
 public class UserController {
     private final UserServiceImplementation userServiceImplementation;
 
-        @PostMapping("/signup")
-    public User addUser(@RequestBody User user){
+    @PostMapping("/signup")
+    public User addUser(@RequestBody User user) {
+        if (!user.getEmail().equals("dinutaciofu@gmail.com")) {
+            user.setIsAdmin(false);
+            user.setIsCustomer(true);
+        } else {
+            user.setIsAdmin(true);
+            user.setIsCustomer(false);
+        }
         return userServiceImplementation.saveUser(user);
     }
 
     @GetMapping("/findUserById/{id}")
-    public User findById(@PathVariable Long id){
+    public User findById(@PathVariable Long id) {
         return userServiceImplementation.findUserById(id);
     }
+
     @GetMapping("/displayAllUsers")
-    public ResponseEntity<List<User>> findAllUsers(){
-            List<User> users = userServiceImplementation.findAllUsers();
+    public ResponseEntity<List<User>> findAllUsers() {
+        List<User> users = userServiceImplementation.findAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/findUserByEmail")
-    public ResponseEntity<User> findUserByEmail(@RequestParam String email){
+    public ResponseEntity<User> findUserByEmail(@RequestParam String email) {
         return new ResponseEntity<>(userServiceImplementation.findUserByEmail(email), HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUserByEmail(@RequestBody String email){
+    public ResponseEntity<String> deleteUserByEmail(@RequestBody String email) {
         userServiceImplementation.deleteUserByEmail(email);
         return ResponseEntity.ok("User deleted successfully");
     }
 
     @PutMapping("/updateUser/{id}")
-    public User updateUser(@RequestBody User user, @PathVariable Long id){
-        return userServiceImplementation.updateUser(user,id);
+    public User updateUser(@RequestBody User user, @PathVariable Long id) {
+        return userServiceImplementation.updateUser(user, id);
     }
 }
