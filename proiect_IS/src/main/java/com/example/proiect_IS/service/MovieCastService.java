@@ -13,4 +13,5 @@ public interface MovieCastService {
     List<MovieCast> findAll();
     List<MovieCast> findAllByActor(Actor actor);
     List<MovieCast> findAllByMovie(Movie movie);
+    void deleteCastByMovie(Movie movie);
 }

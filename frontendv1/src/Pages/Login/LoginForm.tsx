@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { errorMonitor } from "events";
 
 type User = {
   id?: number; //este optional
@@ -49,8 +50,11 @@ const LoginForm: React.FC = () => {
         )}`
       );
 
-      console.log(response.data);
-      login();
+      // console.log(response.data);
+      if (response.data.password === password) {
+        login();
+      } else {
+      }
     } catch (error) {
       console.error("Error getting users data", error);
     }

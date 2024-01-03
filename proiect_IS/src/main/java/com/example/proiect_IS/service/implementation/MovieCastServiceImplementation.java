@@ -35,4 +35,9 @@ public class MovieCastServiceImplementation implements MovieCastService {
     public List<MovieCast> findAllByMovie(Movie movie) {
         return movieCastRepository.findAllByMovie(movie);
     }
+
+    @Override
+    public void deleteCastByMovie(Movie movie) {
+        movieCastRepository.deleteMovieCastByMovie(movie);
+    }
 }

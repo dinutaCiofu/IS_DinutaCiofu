@@ -10,6 +10,7 @@ import java.util.List;
 public interface MovieService {
     Movie saveMovie(Movie movie);
     Movie findMovieByTitle(String title);
+    Movie findMovieById(Long id);
     List<Movie> findAllMovies();
     List<Movie> findMoviesByGenre(String genre);
     List<Movie> findMoviesByCategory(String category);

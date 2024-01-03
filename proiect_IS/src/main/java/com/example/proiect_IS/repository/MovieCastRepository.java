@@ -4,7 +4,9 @@ import com.example.proiect_IS.model.Actor;
 import com.example.proiect_IS.model.Movie;
 import com.example.proiect_IS.model.MovieCast;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +17,8 @@ public interface MovieCastRepository extends JpaRepository<MovieCast, Long> {
     List<MovieCast> findAllByActor(Actor actor);
     @Query("SELECT m FROM MovieCast m WHERE m.movie = :movie")
     List<MovieCast> findAllByMovie(Movie movie);
+
+    @Modifying
+    @Query(value = "DELETE FROM MovieCast mc WHERE mc.movie = :movie")
+    void deleteMovieCastByMovie(@Param("movie") Movie movie);
 }

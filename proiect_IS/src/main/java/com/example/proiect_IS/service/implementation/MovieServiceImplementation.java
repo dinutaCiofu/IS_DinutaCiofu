@@ -1,10 +1,10 @@
 package com.example.proiect_IS.service.implementation;
 
 import com.example.proiect_IS.model.Actor;
+import com.example.proiect_IS.model.Broadcast;
 import com.example.proiect_IS.model.Movie;
 import com.example.proiect_IS.model.MovieCast;
-import com.example.proiect_IS.repository.ActorRepository;
-import com.example.proiect_IS.repository.MovieRepository;
+import com.example.proiect_IS.repository.*;
 import com.example.proiect_IS.service.MovieService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +20,12 @@ public class MovieServiceImplementation implements MovieService {
     private MovieRepository movieRepository;
     @Autowired
     private ActorRepository actorRepository;
+    @Autowired
+    private MovieCastRepository movieCastRepository;
+    @Autowired
+    private BroadcastRepository broadcastRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Override
     public Movie saveMovie(Movie movie) {
@@ -30,10 +36,17 @@ public class MovieServiceImplementation implements MovieService {
     public Movie findMovieByTitle(String title) {
         return movieRepository.findMovieByTitle(title);
     }
+
+    @Override
+    public Movie findMovieById(Long id) {
+        return movieRepository.findById(id).get();
+    }
+
     @Override
     public List<Movie> findAllMovies() {
         return movieRepository.findAll();
     }
+
     @Override
     public List<Movie> findMoviesByGenre(String genre) {
         return movieRepository.findAllByGenre(genre);
@@ -48,7 +61,7 @@ public class MovieServiceImplementation implements MovieService {
     @Transactional
     public Movie updateMovie(Long id, Movie movie) {
         Movie updatedMovie = movieRepository.findById(id).get();
-        if(updatedMovie != null){
+        if (updatedMovie != null) {
             updatedMovie.setTitle(movie.getTitle());
             updatedMovie.setCategory(movie.getCategory());
             updatedMovie.setDescription(movie.getDescription());
@@ -56,7 +69,7 @@ public class MovieServiceImplementation implements MovieService {
             updatedMovie.setGenre(movie.getGenre());
             updatedMovie.setLanguage(movie.getLanguage());
             return movieRepository.saveAndFlush(updatedMovie);
-        }else{
+        } else {
             return null;
         }
     }
@@ -91,9 +104,24 @@ public class MovieServiceImplementation implements MovieService {
 //        return null;
 //    }
 
-
+    @Transactional
     @Override
     public void deleteMovieById(Long id) {
+        Movie foundMovie = movieRepository.findById(id).get();
+        // delete the cast associated with the movie
+        List<MovieCast> movieCasts = movieCastRepository.findAllByMovie(foundMovie);
+        if (!movieCasts.isEmpty()) {
+            movieCastRepository.deleteMovieCastByMovie(foundMovie);
+        }
+
+        // delete the broadcast associated with the movie
+        List<Broadcast> broadcasts = broadcastRepository.findAllByMovie(foundMovie);
+        if (!broadcasts.isEmpty()) {
+            // delete reservation by broadcast
+            reservationRepository.deleteReservationByBroadcast(broadcasts.get(0));
+            // delete broadcast by movie
+            broadcastRepository.deleteBroadcastByMovie(foundMovie);
+        }
         movieRepository.deleteById(id);
     }
 

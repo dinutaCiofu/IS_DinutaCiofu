@@ -39,7 +39,11 @@ public class MovieReviewServiceImplementation implements MovieReviewService {
     }
 
     @Override
-    public List<MovieReview> findAllByUser(User user) {
-        return movieReviewRepository.findAllByUser(user);
+    public List<MovieReview> findAllByUserID(Long userID) {
+        return movieReviewRepository.findAllByUserId(userID);
+    }
+    @Override
+    public void deleteReviewByUserId(Long userID) {
+        movieReviewRepository.deleteMovieReviewByUserId(userID);
     }
 }

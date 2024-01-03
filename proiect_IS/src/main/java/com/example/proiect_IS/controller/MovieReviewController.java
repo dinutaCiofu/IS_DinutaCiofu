@@ -25,7 +25,7 @@ public class MovieReviewController {
     }
 
     @GetMapping("/findReviewByUser")
-    public List<MovieReview> findReviewByUser(@RequestBody User user){
-        return movieReviewServiceImplementation.findAllByUser(user);
+    public List<MovieReview> findReviewByUser(@RequestBody Long userID){
+        return movieReviewServiceImplementation.findAllByUserID(userID);
     }
 }

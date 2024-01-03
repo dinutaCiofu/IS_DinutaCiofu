@@ -10,5 +10,6 @@ import java.util.List;
 public interface MovieReviewService {
     MovieReview addReview(MovieReview movieReview);
     List<MovieReview> findAll();
-    List<MovieReview> findAllByUser(User user);
+    List<MovieReview> findAllByUserID(Long userID);
+    void deleteReviewByUserId(Long userID);
 }

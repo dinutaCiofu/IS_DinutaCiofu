@@ -1,12 +1,15 @@
 package com.example.proiect_IS.service.implementation;
 
 import com.example.proiect_IS.model.MovieReview;
+import com.example.proiect_IS.model.Reservation;
 import com.example.proiect_IS.model.User;
 import com.example.proiect_IS.repository.MovieReviewRepository;
+import com.example.proiect_IS.repository.ReservationRepository;
 import com.example.proiect_IS.repository.UserRepository;
 import com.example.proiect_IS.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +18,10 @@ import java.util.Objects;
 public class UserServiceImplementation implements UserService {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private MovieReviewRepository movieReviewRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
 
     @Override
     public User findUserById(Long id) {
@@ -29,8 +36,18 @@ public class UserServiceImplementation implements UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
+   @Transactional
     @Override
     public void deleteUserByEmail(String email) {
+        User foudUser = userRepository.findUserByEmail(email);
+        List<MovieReview> movieReviews = movieReviewRepository.findAllByUserId(foudUser.getId());
+        if(!movieReviews.isEmpty()) {
+            movieReviewRepository.deleteMovieReviewByUserId(foudUser.getId());
+        }
+        List<Reservation> reservations = reservationRepository.findAllByUser(foudUser);
+        if(!reservations.isEmpty()){
+            reservationRepository.deleteReservationByUserId(foudUser.getId());
+        }
         userRepository.deleteUserByEmail(email);
     }
     @Override

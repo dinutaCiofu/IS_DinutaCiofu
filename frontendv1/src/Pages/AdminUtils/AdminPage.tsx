@@ -5,7 +5,6 @@ import {
   toolBarStyle,
   listDividersStyle,
   containerStyle,
-  divClientsListStyle,
 } from "./AdminPage.styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -13,7 +12,8 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
-import ClientList from "../../components/ClientList";
+import ClientList from "../../components/Client/ClientList";
+import MovieList from "../../components/Movie/MovieList";
 
 const AdminPage = (): JSX.Element => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -65,9 +65,10 @@ const AdminPage = (): JSX.Element => {
           </ListItem>
         </List>
       </div>
-      <div style={divClientsListStyle}>
+      <>
         {selectedOption === "Customers" && <ClientList />}
-      </div>
+        {selectedOption === "Movies" && <MovieList />}
+      </>
     </div>
   );
 };

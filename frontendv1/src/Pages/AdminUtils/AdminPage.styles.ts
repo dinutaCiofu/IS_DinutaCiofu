@@ -2,7 +2,8 @@ export const htmlStyle: React.CSSProperties = {
   fontFamily: '"Quicksand", sans-serif',
   color: "#CA81F9",
   background: "linear-gradient(#20043d,#4E2559, #7F28B6 ,#9945CF, #DF5EFF )",
-  // justifyContent: "center",
+  alignItems: "center",
+  justifyContent: "center",
 };
 export const toolBarStyle: React.CSSProperties = {
   backgroundColor: "#580090",
@@ -33,15 +34,16 @@ export const containerStyle: React.CSSProperties = {
 };
 
 export const contentStyle: React.CSSProperties = {
-  flex: 1,
-  padding: "16px",
+  // flex: 1,
+  // padding: "13px",
+  alignItems: "center",
 };
 
 export const divClientsListStyle: React.CSSProperties = {
-  position: "absolute",
+  // position: "static",
   display: "flex",
   flex: 1,
-  // flexDirection: "column",
+  flexDirection: "column",
   top: "60px",
   left: "200px",
 };

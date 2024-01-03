@@ -1,10 +1,13 @@
 package com.example.proiect_IS.controller;
 
 import com.example.proiect_IS.model.User;
+import com.example.proiect_IS.service.MovieReviewService;
+import com.example.proiect_IS.service.implementation.MovieReviewServiceImplementation;
 import com.example.proiect_IS.service.implementation.UserServiceImplementation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserController {
     private final UserServiceImplementation userServiceImplementation;
+    private final MovieReviewServiceImplementation movieReviewServiceImplementation;
 
     @PostMapping("/signup")
     public User addUser(@RequestBody User user) {
@@ -44,7 +48,7 @@ public class UserController {
     }
 
     @DeleteMapping("/deleteUser")
-    public ResponseEntity<String> deleteUserByEmail(@RequestBody String email) {
+    public ResponseEntity<String> deleteUserByEmail(@RequestParam String email) {
         userServiceImplementation.deleteUserByEmail(email);
         return ResponseEntity.ok("User deleted successfully");
     }

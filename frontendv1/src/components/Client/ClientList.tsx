@@ -1,7 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
-import customerIcon from "../Img/customer.png";
+import customerIcon from "../../Img/customer.png";
+import customers from "../../Img/customers.png";
+import Button from "@mui/material/Button";
+import {
+  buttonStyle,
+  clientDetailsDivStyle,
+  clientListDivStyle,
+  liStyle,
+  parentDivStyle,
+  ulStyle,
+} from "./ClientList.styles";
 
 type Client = {
   id?: number; //este optional
@@ -25,8 +35,8 @@ const ClientList: React.FC = () => {
         const response = await axios.get<Client[]>(
           "http://localhost:8080/displayAllUsers"
         );
-        setClients(response.data);
-        console.log(response.data);
+        setClients(response.data || []);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching clients", error);
       }
@@ -50,35 +60,67 @@ const ClientList: React.FC = () => {
     }
   };
 
-  const handleUpdateClient = () => {
-    if (updatedClient) {
-      console.log("Actualizare client:", updatedClient);
+  const handleUpdateClient = async () => {
+    try {
+      if (selectedClient && updatedClient) {
+        // trimite un request pentru update client
+        const response = await axios.put(
+          `http://localhost:8080/updateUser/${selectedClient.id}`,
+          updatedClient
+        );
+
+        // handle the response
+        console.log("Update response:", response.data);
+
+        // se reincarca lista de clienti dupa update
+        const clientsResponse = await axios.get<Client[]>(
+          "http://localhost:8080/displayAllUsers"
+        );
+        setClients(clientsResponse.data);
+      }
+    } catch (error) {
+      console.error("Error updating client, ", error);
     }
   };
 
+  const handleDeleteClient = async () => {
+    try {
+      if (selectedClient) {
+        // se trimite request pentru stergerea clientului dupa adresa de email
+        console.log("Deleting client:", selectedClient.email);
+        await axios.delete(
+          `http://localhost:8080/deleteUser?email=${selectedClient.email}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        // reincarca lista de clienti dupa stergere
+        const response = await axios.get<Client[]>(
+          "http://localhost:8080/displayAllUsers"
+        );
+        setClients(response.data);
+
+        //deselecteaza clientul dupa stergere
+        setSelectedClient(null);
+      }
+    } catch (error) {
+      console.error("Error deleting client", error);
+    }
+  };
   return (
-    <div style={{ display: "flex" }}>
-      <div
-        style={{
-          width: "300px",
-          padding: "10px",
-        }}
-      >
+    <div style={parentDivStyle}>
+      <div style={clientListDivStyle}>
         <h2> Lista clientilor</h2>
-        <ul style={{ padding: 5, listStyle: "none" }}>
+        <ul style={ulStyle}>
           {clients.map((client) =>
             client.isCustomer ? (
               <li
                 key={client.id}
                 onClick={() => handleClientSelect(client)}
-                style={{
-                  cursor: "pointer",
-                  padding: "8px",
-                  margin: "5px",
-                  borderRadius: "5px",
-                  display: "flex",
-                  alignItems: "center",
-                }}
+                style={liStyle}
               >
                 <img
                   src={customerIcon}
@@ -91,12 +133,7 @@ const ClientList: React.FC = () => {
           )}
         </ul>
       </div>
-      <div
-        style={{
-          marginLeft: "20px",
-          padding: "10px",
-        }}
-      >
+      <div style={clientDetailsDivStyle}>
         {selectedClient && (
           <div>
             <h2>Detalii Client</h2>
@@ -136,23 +173,28 @@ const ClientList: React.FC = () => {
               size="small"
             />
 
-            <button
-              onClick={() =>
-                console.log("Implementați funcționalitatea de actualizare")
-              }
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={handleUpdateClient}
             >
               Actualizare Client
-            </button>
-            <button
-              onClick={() =>
-                console.log("Implementați funcționalitatea de ștergere")
-              }
+            </Button>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={handleDeleteClient}
             >
               Ștergere Client
-            </button>
+            </Button>
           </div>
         )}
       </div>
+      <img
+        src={customers}
+        alt="Customers"
+        style={{ width: "100%", height: "auto", objectFit: "contain" }}
+      />
     </div>
   );
 };

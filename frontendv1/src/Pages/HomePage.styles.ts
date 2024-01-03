@@ -13,10 +13,6 @@ export const toolBarStyle: React.CSSProperties = {
   backgroundColor: "#580090",
 };
 
-// export const toolBarBtnStyle: React.CSSProperties = {
-//   backgroundColor: "#6200A1",
-//   color: "#ebe7ef",
-// };
 export const aboutImgStyle: React.CSSProperties = {
   display: "flex",
   alignItems: "center",
