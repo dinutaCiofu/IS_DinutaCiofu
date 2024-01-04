@@ -19,21 +19,30 @@ import MovieForm from "../../components/Movie/MovieForm";
 import { Button } from "@mui/material";
 import { buttonStyle } from "../../components/Client/ClientList.styles";
 import Program from "../../components/Program/Program";
+import BroadcastList from "../../components/Broadcast/BroadcastList";
+import BroadcastForm from "../../components/Broadcast/BroadcastForm";
 
 type MovieMode = "view" | "add" | null;
+type BroadcastMode = "view" | "add" | null;
 type OptionSelect = string | null;
+type RoomMode = "view" | "add" | null;
 
 const AdminPage = (): JSX.Element => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [movieMode, setMovieMode] = useState<string | null>(null);
+  const [broadcastMode, setBroadcastMode] = useState<string | null>(null);
 
   const handleOptionSelect = (option: OptionSelect) => {
     setSelectedOption(option);
     setMovieMode(null); // reset movie mode
+    setBroadcastMode(null); // reset broadcast mode
   };
 
   const handleMovieModeSelect = (mode: MovieMode) => {
     setMovieMode(mode);
+  };
+  const handleBroadcastModeSelect = (mode: BroadcastMode) => {
+    setBroadcastMode(mode);
   };
   return (
     <div style={htmlStyle}>
@@ -65,12 +74,17 @@ const AdminPage = (): JSX.Element => {
             <ListItemText primary="Program" />
           </ListItem>
           <Divider light />
+
+          <ListItem button onClick={() => handleOptionSelect("Broadcasts")}>
+            <ListItemText primary="Broadcasts" />
+          </ListItem>
+          <Divider light />
           <ListItem button onClick={() => handleOptionSelect("Reservations")}>
             <ListItemText primary="Reservations" />
           </ListItem>
           <Divider light />
-          <ListItem button onClick={() => handleOptionSelect("Broadcasts")}>
-            <ListItemText primary="Broadcasts" />
+          <ListItem button onClick={() => handleOptionSelect("Rooms")}>
+            <ListItemText primary="Rooms" />
           </ListItem>
           <Divider light />
           <ListItem button onClick={() => handleOptionSelect("My account")}>
@@ -108,6 +122,32 @@ const AdminPage = (): JSX.Element => {
         )}
         {selectedOption === "Program" && (
           <Program onCancel={() => handleOptionSelect(null)} />
+        )}
+        {selectedOption === "Broadcasts" && broadcastMode === null && (
+          <div style={movieOptionsBtnStyle}>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={() => handleBroadcastModeSelect("view")}
+            >
+              Vizualizare Broadcasts
+            </Button>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={() => handleBroadcastModeSelect("add")}
+            >
+              Adauga Broadcast
+            </Button>
+          </div>
+        )}
+        {selectedOption === "Broadcasts" && broadcastMode === "view" && (
+          <div>
+            <BroadcastList onCancel={() => handleBroadcastModeSelect(null)} />
+          </div>
+        )}
+        {selectedOption === "Broadcasts" && broadcastMode === "add" && (
+          <BroadcastForm onCancel={() => handleBroadcastModeSelect(null)} />
         )}
       </>
     </div>
