@@ -1,9 +1,23 @@
 export const parentDivStyle: React.CSSProperties = {
+  // display: "flex",
+  // alignItems: "center",
+  // width: "150%",
+
+  // paddingLeft: "20px",
+  // paddingRight: "20px",
   display: "flex",
+  justifyContent: "center",
   alignItems: "center",
-  paddingLeft: "20px",
-  paddingRight: "20px",
+  marginLeft: "140px",
+  // paddingLeft: "250px",
+  // paddingRight: "20px",
   marginTop: "20px",
+  // padding: "0",
+  // margin: "0",
+  minHeight: "97vh",
+  minWidth: "198vh",
+  overflow: "hidden",
+  position: "static",
 };
 export const buttonStyle: React.CSSProperties = {
   backgroundColor: "#20043d",
@@ -12,9 +26,10 @@ export const buttonStyle: React.CSSProperties = {
 };
 
 export const movieListStyle: React.CSSProperties = {
-  marginTop: "50px",
-  //   marginBottom: "10px",
-  width: "57%",
+  marginTop: "55px",
+  // marginBottom: "10px",
+  width: "60%",
+  marginLeft: "50px",
   padding: "10px",
 };
 export const ulStyle: React.CSSProperties = { padding: 5, listStyle: "none" };

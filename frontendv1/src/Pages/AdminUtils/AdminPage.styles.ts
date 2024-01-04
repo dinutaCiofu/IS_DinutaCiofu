@@ -9,9 +9,8 @@ export const toolBarStyle: React.CSSProperties = {
   backgroundColor: "#580090",
 };
 export const listDividersStyle: React.CSSProperties = {
-  // width: "100%",
-  // maxWidth: 360,
-  // backgroundColor: "background.paper",
+  flex: "0 0 160px",
+  // padding: "10px",
   width: "100%",
   backgroundColor: "#580090",
   position: "sticky",
@@ -46,4 +45,22 @@ export const divClientsListStyle: React.CSSProperties = {
   flexDirection: "column",
   top: "60px",
   left: "200px",
+};
+
+export const movieOptionsBtnStyle: React.CSSProperties = {
+  display: "flex",
+  flexDirection: "row",
+  gap: "100px",
+  justifyContent: "center",
+  alignItems: "center",
+  marginLeft: "140px",
+  // paddingLeft: "250px",
+  // paddingRight: "20px",
+  marginTop: "20px",
+  // padding: "0",
+  // margin: "0",
+  minHeight: "100vh",
+  minWidth: "198vh",
+  overflow: "hidden",
+  position: "static",
 };

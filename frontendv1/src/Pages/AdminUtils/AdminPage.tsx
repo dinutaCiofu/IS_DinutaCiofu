@@ -5,6 +5,7 @@ import {
   toolBarStyle,
   listDividersStyle,
   containerStyle,
+  movieOptionsBtnStyle,
 } from "./AdminPage.styles";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
@@ -14,14 +15,26 @@ import ListItemText from "@mui/material/ListItemText";
 import Divider from "@mui/material/Divider";
 import ClientList from "../../components/Client/ClientList";
 import MovieList from "../../components/Movie/MovieList";
+import MovieForm from "../../components/Movie/MovieForm";
+import { Button } from "@mui/material";
+import { buttonStyle } from "../../components/Client/ClientList.styles";
+import Program from "../../components/Program/Program";
+
+type MovieMode = "view" | "add" | null;
+type OptionSelect = string | null;
 
 const AdminPage = (): JSX.Element => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [movieMode, setMovieMode] = useState<string | null>(null);
 
-  const handleOptionSelect = (option: string) => {
+  const handleOptionSelect = (option: OptionSelect) => {
     setSelectedOption(option);
+    setMovieMode(null); // reset movie mode
   };
 
+  const handleMovieModeSelect = (mode: MovieMode) => {
+    setMovieMode(mode);
+  };
   return (
     <div style={htmlStyle}>
       <AppBar position="fixed">
@@ -67,7 +80,35 @@ const AdminPage = (): JSX.Element => {
       </div>
       <>
         {selectedOption === "Customers" && <ClientList />}
-        {selectedOption === "Movies" && <MovieList />}
+        {selectedOption === "Movies" && movieMode === null && (
+          <div style={movieOptionsBtnStyle}>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={() => handleMovieModeSelect("view")}
+            >
+              Vizualizare Filme
+            </Button>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={() => handleMovieModeSelect("add")}
+            >
+              Adauga film
+            </Button>
+          </div>
+        )}
+        {selectedOption === "Movies" && movieMode === "view" && (
+          <>
+            <MovieList onCancel={() => handleMovieModeSelect(null)} />
+          </>
+        )}
+        {selectedOption === "Movies" && movieMode === "add" && (
+          <MovieForm onCancel={() => handleMovieModeSelect(null)} />
+        )}
+        {selectedOption === "Program" && (
+          <Program onCancel={() => handleOptionSelect(null)} />
+        )}
       </>
     </div>
   );

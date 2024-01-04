@@ -21,8 +21,11 @@ type Movie = {
   language: string;
   category: string;
 };
+type MovieListProps = {
+  onCancel: () => void;
+};
 
-const MovieList: React.FC = () => {
+const MovieList: React.FC<MovieListProps> = ({ onCancel }) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [updatedMovie, setUpdatedMovie] = useState<Movie | null>(null);
@@ -104,6 +107,9 @@ const MovieList: React.FC = () => {
       console.error("Error deleting movie", err);
     }
   };
+  const handleCancel = () => {
+    onCancel();
+  };
   return (
     <div style={parentDivStyle}>
       <div style={movieListStyle}>
@@ -124,6 +130,9 @@ const MovieList: React.FC = () => {
             </li>
           ))}
         </ul>
+        <Button style={buttonStyle} variant="contained" onClick={handleCancel}>
+          Anuleaza
+        </Button>
       </div>
       <div style={movieDetailsDivStyle}>
         {selectedMovie && (
