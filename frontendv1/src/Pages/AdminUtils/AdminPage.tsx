@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import {
   htmlStyle,
@@ -21,6 +21,11 @@ import { buttonStyle } from "../../components/Client/ClientList.styles";
 import Program from "../../components/Program/Program";
 import BroadcastList from "../../components/Broadcast/BroadcastList";
 import BroadcastForm from "../../components/Broadcast/BroadcastForm";
+import RoomList from "../../components/Room/RoomList";
+import RoomForm from "../../components/Room/RoomForm";
+import ReservationList from "../../components/Reservation/ReservationList";
+import { useNavigate, useParams } from "react-router-dom";
+import AdminAccount from "../../components/AdminAccount/AdminAccount";
 
 type MovieMode = "view" | "add" | null;
 type BroadcastMode = "view" | "add" | null;
@@ -28,14 +33,19 @@ type OptionSelect = string | null;
 type RoomMode = "view" | "add" | null;
 
 const AdminPage = (): JSX.Element => {
+  const navigate = useNavigate();
+  const { userId } = useParams();
+
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [movieMode, setMovieMode] = useState<string | null>(null);
   const [broadcastMode, setBroadcastMode] = useState<string | null>(null);
+  const [roomMode, setRoomMode] = useState<string | null>(null);
 
   const handleOptionSelect = (option: OptionSelect) => {
     setSelectedOption(option);
     setMovieMode(null); // reset movie mode
     setBroadcastMode(null); // reset broadcast mode
+    setRoomMode(null);
   };
 
   const handleMovieModeSelect = (mode: MovieMode) => {
@@ -43,6 +53,9 @@ const AdminPage = (): JSX.Element => {
   };
   const handleBroadcastModeSelect = (mode: BroadcastMode) => {
     setBroadcastMode(mode);
+  };
+  const handleRoomModeSelect = (mode: RoomMode) => {
+    setRoomMode(mode);
   };
   return (
     <div style={htmlStyle}>
@@ -148,6 +161,34 @@ const AdminPage = (): JSX.Element => {
         )}
         {selectedOption === "Broadcasts" && broadcastMode === "add" && (
           <BroadcastForm onCancel={() => handleBroadcastModeSelect(null)} />
+        )}
+        {selectedOption === "Rooms" && roomMode === null && (
+          <div style={movieOptionsBtnStyle}>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={() => handleRoomModeSelect("view")}
+            >
+              Vizualizare Rooms
+            </Button>
+            <Button
+              style={buttonStyle}
+              variant="contained"
+              onClick={() => handleRoomModeSelect("add")}
+            >
+              Adauga Room
+            </Button>
+          </div>
+        )}
+        {selectedOption === "Rooms" && roomMode === "view" && (
+          <RoomList onCancel={() => handleRoomModeSelect(null)} />
+        )}
+        {selectedOption === "Rooms" && roomMode === "add" && (
+          <RoomForm onCancel={() => handleRoomModeSelect(null)} />
+        )}
+        {selectedOption === "Reservations" && <ReservationList />}
+        {selectedOption === "My account" && userId !== undefined && (
+          <AdminAccount userId={parseInt(userId, 10)} />
         )}
       </>
     </div>

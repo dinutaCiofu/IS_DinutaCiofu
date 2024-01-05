@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styles from "./Login.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { errorMonitor } from "events";
 
 type User = {
   id?: number; //este optional
@@ -21,9 +20,6 @@ const LoginForm: React.FC = () => {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
-  const onChangeId = (event: any): void => {
-    setId(event.target.value);
-  };
   const onChangeFirstName = (event: any): void => {
     setFirstName(event.target.value);
   };
@@ -50,19 +46,16 @@ const LoginForm: React.FC = () => {
         )}`
       );
 
-      // console.log(response.data);
       if (response.data.password === password) {
-        login();
+        navigate(`/Admin/${response.data.id}`);
       } else {
+        alert("Please enter your correct password!");
       }
     } catch (error) {
       console.error("Error getting users data", error);
     }
   };
   const navigate = useNavigate();
-  const login = (): void => {
-    navigate("/Admin");
-  };
 
   const signup = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

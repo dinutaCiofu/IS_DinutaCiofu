@@ -34,4 +34,8 @@ public class ReservationServiceImplementation implements ReservationService {
     public void deleteReservationsByUserId(Long userID) {
         reservationRepository.deleteReservationByUserId(userID);
     }
+    @Override
+    public void deleteReservationById(Long id) {
+        reservationRepository.deleteReservationById(id);
+    }
 }

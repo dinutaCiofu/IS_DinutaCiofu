@@ -13,4 +13,5 @@ public interface ReservationService {
     List<Reservation> findAll();
     List<Reservation> findAllByUser(User user);
     void deleteReservationsByUserId(Long userID);
+    void deleteReservationById(Long id);
 }

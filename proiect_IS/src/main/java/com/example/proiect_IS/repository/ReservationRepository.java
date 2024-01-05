@@ -6,7 +6,9 @@ import com.example.proiect_IS.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -20,4 +22,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     @Modifying
     @Query(value = "DELETE FROM Reservation r WHERE r.broadcast = :broadcast")
     void deleteReservationByBroadcast(Broadcast broadcast);
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM Reservation r WHERE r.id = :id")
+    void deleteReservationById(@Param("id")Long id);
+
 }

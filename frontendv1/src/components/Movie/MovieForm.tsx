@@ -1,11 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { TextField } from "@mui/material";
-import {
-  buttonStyle,
-  movieListStyle,
-  parentDivStyle,
-} from "./MovieList.styles";
+import { buttonStyle, movieListStyle } from "./MovieList.styles";
 import Button from "@mui/material/Button";
 
 type MovieFormProps = {

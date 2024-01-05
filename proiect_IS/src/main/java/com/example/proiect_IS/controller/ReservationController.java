@@ -4,6 +4,7 @@ import com.example.proiect_IS.model.Reservation;
 import com.example.proiect_IS.model.User;
 import com.example.proiect_IS.service.implementation.ReservationServiceImplementation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,5 +29,10 @@ public class ReservationController {
     @GetMapping("/findAllReservationsByUser")
     public List<Reservation> findReservationsByUser(@RequestBody User user){
         return reservationServiceImplementation.findAllByUser(user);
+    }
+    @DeleteMapping("/deleteReservationById/{id}")
+    public ResponseEntity<String> deleteReservationById(@PathVariable Long id){
+        reservationServiceImplementation.deleteReservationById(id);
+        return ResponseEntity.ok("Reservation deleted successfully");
     }
 }

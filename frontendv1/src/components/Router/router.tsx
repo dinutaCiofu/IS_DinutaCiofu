@@ -15,7 +15,7 @@ const routes: RouteObject[] = [
     element: <LoginForm />,
   },
   {
-    path: "/Admin",
+    path: "/Admin/:userId", // am definit un route parameter "userId"
     element: <AdminPage />,
   },
 ];
