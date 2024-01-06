@@ -3,6 +3,7 @@ import Root from "../Root";
 import HomePage from "../../Pages/HomePage";
 import LoginForm from "../../Pages/Login/LoginForm";
 import AdminPage from "../../Pages/AdminUtils/AdminPage";
+import Home from "../../Pages/ClientUtils/Home";
 
 const routes: RouteObject[] = [
   {
@@ -17,6 +18,10 @@ const routes: RouteObject[] = [
   {
     path: "/Admin/:userId", // am definit un route parameter "userId"
     element: <AdminPage />,
+  },
+  {
+    path: "/Home",
+    element: <Home />,
   },
 ];
 export const router = createBrowserRouter(routes);

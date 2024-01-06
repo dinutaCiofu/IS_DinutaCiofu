@@ -188,7 +188,10 @@ const AdminPage = (): JSX.Element => {
         )}
         {selectedOption === "Reservations" && <ReservationList />}
         {selectedOption === "My account" && userId !== undefined && (
-          <AdminAccount userId={parseInt(userId, 10)} />
+          <AdminAccount
+            userId={parseInt(userId, 10)}
+            onCancel={() => navigate("/")}
+          />
         )}
       </>
     </div>

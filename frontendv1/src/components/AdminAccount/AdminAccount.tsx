@@ -4,10 +4,11 @@ import { Button, TextField, Paper, Typography } from "@mui/material";
 import { buttonStyle, formContainerStyle } from "./AdminAccount.styles";
 
 type AdminAccountProps = {
+  onCancel: () => void;
   userId: number; // Assuming you have the ID of the logged-in administrator
 };
 
-const AdminAccount: React.FC<AdminAccountProps> = ({ userId }) => {
+const AdminAccount: React.FC<AdminAccountProps> = ({ onCancel, userId }) => {
   const [userData, setUserData] = useState({
     firstName: "",
     lastName: "",
@@ -42,6 +43,7 @@ const AdminAccount: React.FC<AdminAccountProps> = ({ userId }) => {
       .then((response) => {
         console.log("User details updated successfully", response.data);
         alert("User details updated successfully");
+        onCancel();
       })
       .catch((error) => {
         console.error("Error updating user details", error);
@@ -119,6 +121,14 @@ const AdminAccount: React.FC<AdminAccountProps> = ({ userId }) => {
 
         <Button type="submit" variant="contained" style={buttonStyle}>
           Save Changes
+        </Button>
+        <Button
+          type="button"
+          variant="contained"
+          onClick={onCancel}
+          style={buttonStyle}
+        >
+          Sign out
         </Button>
       </form>
     </Paper>

@@ -47,7 +47,11 @@ const LoginForm: React.FC = () => {
       );
 
       if (response.data.password === password) {
-        navigate(`/Admin/${response.data.id}`);
+        if (response.data.email === "dinutaciofu@gmail.com") {
+          navigate(`/Admin/${response.data.id}`);
+        } else {
+          navigate("/Home");
+        }
       } else {
         alert("Please enter your correct password!");
       }
