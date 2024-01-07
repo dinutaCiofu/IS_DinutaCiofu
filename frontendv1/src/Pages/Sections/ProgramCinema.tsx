@@ -14,12 +14,12 @@ const ProgramCinema: React.FC = () => {
   const [programDetails, setProgramDetails] = useState<string[][]>([]);
 
   useEffect(() => {
-    // Incarcă detaliile programului salvate anterior în localStorage
+    // Incarca detaliile programului salvate anterior in localStorage
     const storedProgramDetails = localStorage.getItem("programDetails");
     if (storedProgramDetails) {
       setProgramDetails(JSON.parse(storedProgramDetails));
     } else {
-      // Dacă nu există detalii în localStorage, inițializăm programul cu un rând și șapte coloane
+      // Dacă nu exista detalii in localStorage, inițializam programul cu un rand si sapte coloane
       setProgramDetails([Array(7).fill("")]);
     }
   }, []);

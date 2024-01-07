@@ -31,8 +31,8 @@ const MainTabs: React.FC<MainTabsProps> = ({ onTabChange }) => {
   };
 
   return (
-    <Box>
-      <Tabs value={value} onChange={handleChange}>
+    <Box sx={{ marginRight: "50px" }}>
+      <Tabs value={value} onChange={handleChange} sx={{ marginTop: "20px" }}>
         <Tab label="Program" />
         <Tab label="Movies" />
         <Tab label="My Account" />
